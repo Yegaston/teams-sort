@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team Sorting</title>
+  <style>
+    body {
+      background-color: #000033;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    #team1, #team2 {
+      display: inline-block;
+      width: 40%;
+      margin: 20px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+    #sortBtn {
+      padding: 10px 20px;
+      background-color: #ffd700;
+      color: #000;
+      font-size: 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #sortBtn:hover {
+      background-color: #ffcc00;
+    }
+  </style>
+</head>
+<body>
+  <!-- SVG Animation -->
+  <div>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="500" height="500">
+      <defs>
+        <radialGradient id="field-gradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+          <stop offset="0%" style="stop-color:#00ff00;stop-opacity:0.3"/>
+          <stop offset="100%" style="stop-color:#005500;stop-opacity:0.7"/>
+        </radialGradient>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+          <feMerge>
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+
+      <!-- Fondo dinámico -->
+      <rect width="1000" height="1000" fill="#000033"/>
+      <circle cx="500" cy="500" r="450" fill="url(#field-gradient)"/>
+
+      <!-- Efectos de luz -->
+      <g opacity="0.1">
+        <circle cx="200" cy="200" r="100" fill="#ffffff"/>
+        <circle cx="800" cy="800" r="120" fill="#ffffff"/>
+        <circle cx="150" cy="850" r="80" fill="#ffffff"/>
+        <circle cx="850" cy="150" r="90" fill="#ffffff"/>
+      </g>
+
+      <!-- Título épico -->
+      <text x="500" y="100" font-family="Arial Black, sans-serif" font-size="60" fill="#ffffff" text-anchor="middle" filter="url(#glow)">
+        CHOQUE DE TITANES FUTBOLÍSTICOS
+      </text>
+
+      <!-- Fecha y hora -->
+      <text x="500" y="160" font-family="Arial, sans-serif" font-size="30" fill="#ffd700" text-anchor="middle" filter="url(#glow)">
+        Domingo Juan 23 - 17:00 horas
+      </text>
+
+      <!-- Emblema central -->
+      <g transform="translate(500,500)">
+        <circle r="150" fill="#000033" stroke="#ffd700" stroke-width="10"/>
+        <path d="M-75,-75 L75,75 M-75,75 L75,-75" stroke="#ffd700" stroke-width="20"/>
+        <circle r="50" fill="#ffd700"/>
+        <text x="0" y="15" font-family="Arial Black, sans-serif" font-size="40" fill="#000033" text-anchor="middle">VS</text>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Sorting Teams Section -->
+  <h1>Sort Teams</h1>
+  <div id="teams">
+    <div id="team1">
+      <h2>Team 1</h2>
+      <ul id="team1List"></ul>
+    </div>
+    <div id="team2">
+      <h2>Team 2</h2>
+      <ul id="team2List"></ul>
+    </div>
+  </div>
+
+  <!-- Sort Button -->
+  <button id="sortBtn">Sort Teams</button>
+
+  <script>
+    const names = ["Alientomy", "Coolguille", "Xanax", "Cabe", "Cirk", "Guti", "Romano",
+                   "Trasher", "Gatica", "Matirc", "Esteban", "Vaal344", "Godlum", "cirkjr"];
+
+    document.getElementById('sortBtn').addEventListener('click', () => {
+      // Shuffle the names array
+      const shuffledNames = names.sort(() => 0.5 - Math.random());
+
+      // Split into two teams
+      const team1 = shuffledNames.slice(0, 7);
+      const team2 = shuffledNames.slice(7);
+
+      // Clear previous lists
+      document.getElementById('team1List').innerHTML = '';
+      document.getElementById('team2List').innerHTML = '';
+
+      // Display team 1
+      team1.forEach(name => {
+        const li = document.createElement('li');
+        li.textContent = name;
+        document.getElementById('team1List').appendChild(li);
+      });
+
+      // Display team 2
+      team2.forEach(name => {
+        const li = document.createElement('li');
+        li.textContent = name;
+        document.getElementById('team2List').appendChild(li);
+      });
+    });
+  </script>
+</body>
+</html>
